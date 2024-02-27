@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Department and Employees</title>
+    <script>
+        var employeeIndex = 0; // 全局變量來跟蹤員工的索引
+
+        function addEmployee() {
+            const container = document.getElementById('employeesContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'employees[' + employeeIndex + '].name'; // 使用連續索引
+            container.appendChild(input);
+            container.appendChild(document.createElement('br'));
+            employeeIndex++; // 增加索引計數
+        }
+
+        function toggleDepartmentInput() {
+            var selectBox = document.getElementById("departmentSelect");
+            var newDepartment = document.getElementById("newDepartment");
+            var userInput = document.getElementById("departmentName");
+            var existDepartmentId = document.getElementById("existDepartmentId");
+            if (selectBox.value === 'none') {
+                newDepartment.style.display = 'block';
+                existDepartmentId.value = '';
+            } else {
+                newDepartment.style.display =  'none';
+                existDepartmentId.value = selectBox.value;
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Add Department and Employees</h1>
+<body>
+<form action="#" th:action="@{/departments/addDepartmentWithEmployees}" th:object="${departmentForm}" method="post">
+    <label for="departmentSelect">Select Department:</label>
+    <select id="departmentSelect" name="department" onchange="toggleDepartmentInput()">
+        <option value="" disabled selected>---</option>
+        <option value="none">Add New Department</option>
+        <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}">Department 1</option>
+    </select>
+    <div id="newDepartment" style="display:none;">
+        <label for="departmentName">Department Name:</label>
+        <input type="text" id="departmentName" name="departmentName" />
+    </div>
+    <input type="text" id="existDepartmentId" name="existDepartmentId" style="display:none;"/>
+    <div id="employeesContainer">
+        <!-- JavaScript will add employee inputs here -->
+    </div>
+    <button type="button" onclick="addEmployee()">Add Employee</button>
+    <br/>
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>

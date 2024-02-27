@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Index Page</title>
+</head>
+<body>
+<h1>Welcome to the Index Page</h1>
+<nav>
+    <ul>
+        <li><a th:href="@{/departments/new}">新增 Department</a></li>
+        <li><a th:href="@{/departments/all}">List All Departments</a></li>
+        <li><a th:href="@{/departments/addDepartmentWithEmployees}">同時新增 Department 和 Employees</a></li>
+        <li><a th:href="@{/employees/new}">新增 Employee</a></li>
+        <li><a th:href="@{/employees/all}">List All Employees</a></li>
+        <li><a th:href="@{/employees/by-department}">根據 Department 來 List All Employees</a></li>
+    </ul>
+</nav>
+</body>
+</html>
